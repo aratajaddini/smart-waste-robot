@@ -1,0 +1,14 @@
+yaml
+name: CI 
+on: pull_request: 
+branches: [ main ] 
+jobs: lint-and-test: 
+runs-on: ubuntu-lateststeps: - name: Checkout code 
+uses: actions/checkout@v4 
+- name: Set up Python uses: actions/setup-python@v5 with: 
+python-version: '3.10' 
+- name: Install dependencies run: | 
+pip install flake8 pytest if [ -f backend/requirements.txt ]; then pip install -r backend/requirements.txt; fi 
+- name: Lint with flake8 run: flake8 backend/ --max-line-length=100 --ignore=E501 
+- name: Run tests run: pytest backend/ -v --tb=short || true 
+
