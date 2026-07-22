@@ -1,0 +1,11 @@
+weights/*.pt
+
+uploads/
+
+*.db
+
+pycache/
+
+*.pyc
+
+.pytest_cache/
