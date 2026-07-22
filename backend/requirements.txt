@@ -13,3 +13,5 @@ ultralytics
 pytest
 
 httpx
+
+ultralytics==8.4.95
