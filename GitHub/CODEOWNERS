@@ -1,6 +1,17 @@
-هر فایلی زیر backend نیاز به تأیید سینا یا رضا دارد
-/backend/ @reza
-فرانت‌اند مال رضا
-/frontend/ @reza
-مستندات مال آرا
-/docs/ @ara
+# Sina (@Myr-at) — Model training & testing (collaborates with Abbas)
+# Abbas (@abbas-pt) — AI model owner (collaborates with Sina on training & testing)
+
+# Default owner (fallback) for any file not matched by a more specific rule
+* @esmaeilireza @Myr-at @abbas-pt
+
+# Backend & Frontend — Reza (Lead Developer)
+/backend/ @esmaeilireza
+/frontend/ @esmaeilireza
+
+# Docs — Ara
+/docs/ @aratajaddini
+
+# Model & training files — Sina and Abbas (collaborative ownership)
+/models/ @Myr-at @abbas-pt
+/training/ @Myr-at @abbas-pt
+/tests/ @Myr-at @abbas-pt
