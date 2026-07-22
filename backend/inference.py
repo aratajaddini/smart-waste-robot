@@ -1,22 +1,33 @@
 from functools import lru_cache
-from backend.config import MODEL_PATH, CLASSES
+from pathlib import Path
+from ultralytics import YOLO
+
+WEIGHTS_PATH = Path(__file__).parent / "weights" / "best.pt"
 
 
 @lru_cache(maxsize=1)
-def get_model():
-    """Lazy load. Runs only on the first real call."""
-    from ultralytics import YOLO
-    return YOLO(str(MODEL_PATH))
+def _load_model() -> YOLO:
+    """Load YOLO model once and cache it."""
+    if not WEIGHTS_PATH.exists():
+        raise FileNotFoundError(f"Model weights not found at {WEIGHTS_PATH}")
+    return YOLO(str(WEIGHTS_PATH))
 
 
 def run_inference(image_path: str) -> dict:
-    model = get_model()
+    """
+    Run YOLOv8 inference on the given image path.
+    Returns top class name and per-class confidence scores.
+    """
+    model = _load_model()
     results = model(image_path)
-    probs = results[0].probs
-    scores = {CLASSES[i]: float(probs.data[i]) for i in range(len(CLASSES))}
-    top_class = max(scores, key=scores.get)
+
+    probs = results[0].probs  # Classification probabilities
+    names = results[0].names  # Class index -> name mapping
+
+    scores = {names[i]: round(float(probs.data[i]), 4) for i in range(len(names))}
+    top_class = names[int(probs.top1)]
+
     return {
         "top_class": top_class,
-        "confidence": scores[top_class],
         "scores": scores,
     }
