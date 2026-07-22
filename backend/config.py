@@ -1,7 +1,6 @@
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
-
+BASE_DIR = Path(__file__).parent  # points to backend/
 MODEL_PATH = BASE_DIR / "weights" / "best.pt"
 UPLOAD_DIR = BASE_DIR / "uploads"
 DB_PATH = BASE_DIR / "waste.db"

@@ -14,7 +14,12 @@ async def predict(file: UploadFile = File(...)):
     with open(dest, "wb") as f:
         shutil.copyfileobj(file.file, f)
 
-    result = run_inference(str(dest))
+    # ✅ Read the saved file as bytes (not a string path)
+    with open(dest, "rb") as f:
+        image_bytes = f.read()
+
+    # ✅ Pass bytes to run_inference (it expects bytes)
+    result = run_inference(image_bytes)
 
     with get_conn() as conn:
         cur = conn.execute(
